@@ -10,6 +10,12 @@ import resolveObjectValuesToArray from './resolveObjectValuesToArray.js';
 import type { PropTypeDescriptor } from '../Documentation.js';
 import type { ArrayExpression, Expression, SpreadElement } from '@babel/types';
 
+function getEnumDescription(path: NodePath): String {
+  const { leadingComments } = path.node;
+
+  return (leadingComments?.map(item=> item.value.trim())|| []).join('');
+}
+
 function getEnumValuesFromArrayExpression(
   path: NodePath<ArrayExpression>,
 ): Array<Record<string, unknown>> {
@@ -29,6 +35,7 @@ function getEnumValuesFromArrayExpression(
         return values.push({
           value: printValue(elementPath),
           computed: !elementPath.isLiteral(),
+          description: getEnumDescription(elementPath)
         });
       }
     }
@@ -39,6 +46,7 @@ function getEnumValuesFromArrayExpression(
     return values.push({
       value: printValue(value),
       computed: !value.isLiteral(),
+      description: getEnumDescription(value)
     });
   });
 
