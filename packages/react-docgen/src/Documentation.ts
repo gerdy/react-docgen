@@ -76,6 +76,7 @@ export interface SimpleType extends BaseType {
 export interface LiteralType extends BaseType {
   name: 'literal';
   value: string;
+  description: string | undefined
 }
 
 export interface ElementsType<T = FunctionSignatureType> extends BaseType {

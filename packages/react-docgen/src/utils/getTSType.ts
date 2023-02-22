@@ -54,6 +54,7 @@ const tsTypes = {
   TSVoidKeyword: 'void',
 };
 
+
 const namedTypes = {
   TSArrayType: handleTSArrayType,
   TSTypeReference: handleTSTypeReference,
@@ -68,6 +69,7 @@ const namedTypes = {
   TSTypeOperator: handleTSTypeOperator,
   TSIndexedAccessType: handleTSIndexedAccessType,
 };
+
 
 function handleTSQualifiedName(
   path: NodePath<TSQualifiedName>,
@@ -125,6 +127,31 @@ function handleTSTypeReference(
       typeParams,
     );
   }
+
+      // 如果这个是枚举类型
+    if(resolvedPath.type === 'TSEnumDeclaration') {
+      const members = resolvedPath.get('members');
+      let rawArr: Array<any> = [], elements: Array<LiteralType> = [];
+      if (members instanceof Array) {
+        members.forEach(member => {
+          // @ts-ignore
+          const { raw } = member.node.initializer.extra;
+          const { leadingComments } = member.node;
+          const description = leadingComments?.map(comment => comment.value.trim()).join(' ');
+          rawArr.push(raw);
+          elements.push({
+            name: 'literal',
+            value: raw,
+            description
+          })
+        })
+      }
+      type = {
+          "name": "union",
+          raw: rawArr.join('|'),
+          elements
+        }
+    }
 
   if (typeParams && typeParams[type.name]) {
     // Open question: Why is this `null` instead of `typeParams`

@@ -1,5 +1,5 @@
 {
-  "name": "@react-docgen-internal/website",
+  "name": "@yqn/docgen-website",
   "private": true,
   "version": "0.0.0",
   "description": "react-docgen website",
