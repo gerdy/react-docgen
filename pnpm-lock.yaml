@@ -73,14 +73,14 @@ importers:
       commander: 10.0.0
       debug: 4.3.4
       fast-glob: 3.2.12
-      react-docgen: npm:@yqn/docgen
+      react-docgen: npm:@yqn/docgen@6.0.1
       slash: 5.0.0
     dependencies:
       chalk: 5.2.0
       commander: 10.0.0
       debug: 4.3.4
       fast-glob: 3.2.12
-      react-docgen: /@yqn/docgen/6.0.0
+      react-docgen: /@yqn/docgen/6.0.1
       slash: 5.0.0
     devDependencies:
       '@types/debug': 4.1.7
@@ -2891,8 +2891,8 @@ packages:
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
     dev: true
 
-  /@yqn/docgen/6.0.0:
-    resolution: {integrity: sha512-B2oSjCYDlNbwznjYQ/8UoAw4MjkEETiGAPL1wQebfJWu0El8/STHuqM3EktA9/ENJdML3YUqNvV0c9il2LxkAQ==}
+  /@yqn/docgen/6.0.1:
+    resolution: {integrity: sha512-uI72t9WBfO0PITSLReWutGfWswIHUgDxEdLMJiWYOfNUFWWQQh04+gveIWChA+FCU7SuZ8SiIrr8pq+lJpZRcw==}
     engines: {node: '>=14.17.0'}
     dependencies:
       '@babel/core': 7.20.12

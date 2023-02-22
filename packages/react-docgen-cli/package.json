@@ -1,6 +1,6 @@
 {
   "name": "@yqn/docgen-cli",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A CLI to extract information from React components for documentation generation.",
   "repository": "reactjs/react-docgen",
   "type": "module",
@@ -33,7 +33,7 @@
     "commander": "10.0.0",
     "debug": "4.3.4",
     "fast-glob": "3.2.12",
-    "react-docgen": "npm:@yqn/docgen",
+    "react-docgen": "npm:@yqn/docgen@6.0.1",
     "slash": "5.0.0"
   },
   "devDependencies": {
