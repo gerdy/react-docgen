@@ -36,6 +36,7 @@ import type {
   RestElement,
   TypeScript,
   TSQualifiedName,
+  TSInterfaceBody,
 } from '@babel/types';
 import { getDocblock } from './docblock.js';
 
@@ -135,7 +136,8 @@ function handleTSTypeReference(
       if (members instanceof Array) {
         members.forEach(member => {
           // @ts-ignore
-          const { raw } = member.node.initializer.extra;
+          const extra = member.node.initializer?.extra;
+          const { raw = '' } = extra || {};
           const { leadingComments } = member.node;
           const description = leadingComments?.map(comment => comment.value.trim()).join(' ');
           rawArr.push(raw);
@@ -151,6 +153,9 @@ function handleTSTypeReference(
           raw: rawArr.join('|'),
           elements
         }
+    } else if (resolvedPath.type === 'TSInterfaceDeclaration') {
+      // @ts-ignore
+      type = handleTSTypeLiteral(resolvedPath, null, 'body.body');
     }
 
   if (typeParams && typeParams[type.name]) {
@@ -195,8 +200,9 @@ function getTSTypeWithRequirements(
 }
 
 function handleTSTypeLiteral(
-  path: NodePath<TSTypeLiteral>,
+  path: NodePath<TSTypeLiteral|TSInterfaceBody>,
   typeParams: TypeParameters | null,
+  key: any | null,
 ): ObjectSignatureType<TSFunctionSignatureType> {
   const type: ObjectSignatureType<TSFunctionSignatureType> = {
     name: 'signature',
@@ -204,8 +210,9 @@ function handleTSTypeLiteral(
     raw: printValue(path),
     signature: { properties: [] },
   };
-
-  path.get('members').forEach((param) => {
+  const memberKey = key || 'members';
+  // @ts-ignore
+  path.get(memberKey).forEach((param) => {
     const typeAnnotation = param.get('typeAnnotation') as NodePath<
       TSTypeAnnotation | null | undefined
     >;

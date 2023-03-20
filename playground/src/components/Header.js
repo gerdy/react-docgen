@@ -12,8 +12,8 @@ export default class Header extends React.Component {
               this.props.onLanguageChange(event.target.value)
             }
           >
-            <option value="js">JavaScript</option>
-            <option value="ts">TypeScript</option>
+            <option value="js" >JavaScript</option>
+            <option value="ts" selected>TypeScript</option>
             <option value="flow">Flow</option>
           </select>
         </h1>
